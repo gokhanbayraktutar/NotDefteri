@@ -668,6 +668,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_ScriptsPartial.cshtml" />
     <Content Include="Views\Shared\_StylesPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NotDefteri.Abstraction\NotDefteri.Abstraction.csproj">

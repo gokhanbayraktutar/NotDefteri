@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NoteDefteri | Dashboard</title>
-    <!-- Tell the browser to be responsive to screen width -->
+    <title>NoteDefteri </title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
 
     @Html.Partial("_StylesPartial")
 
@@ -18,14 +17,15 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             @*<li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>*@
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>*@
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Notlarım</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">Paylaşılan Notlar</a>
             </li>
+
         </ul>
 
         <!-- SEARCH FORM -->
@@ -39,17 +39,26 @@
                 </div>
             </div>
         </form>
+        <ul class="navbar-nav ml-auto" style="margin-right:250px">
+            @if (Session["FullName"] != null)
+            {
+                <li class="nav-item d-none d-sm-inline-block"><a href="/Account/Register"class="nav-link"> @Session["FullName"]</a></li>
+                <li class="nav-item d-none d-sm-inline-block"><a href="/Account/Logout" class="nav-link"> Çıkış Yap</a></li>
+            }
+            else
+            {
+                <li class="nav-item d-none d-sm-inline-block"><a href="/Account/Register" class="nav-link"> Kaydol</a></li>
+                <li class="nav-item d-none d-sm-inline-block"><a href="/Account/Login" class="nav-link"> Giriş Yap</a></li>
+            }
+        </ul>
     </nav>
     <!-- /.navbar -->
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.0.5
-            </div>
+            <strong>Copyright &copy; 2020- <a href="#">NotDefteri</a>.</strong>
+            Tüm Hakları Saklıdır.    
         </footer>
     </div>
 

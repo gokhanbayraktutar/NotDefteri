@@ -1,5 +1,4 @@
-﻿$(function () {
-    $(document).ready(function () {
+﻿    $(document).ready(function () {
         $("#btnRegister").click(function () {
             var UserName = $("#UserName").val()
             var Email = $("#Email").val()
@@ -10,9 +9,12 @@
                 dataType: 'json',
                 data: { UserName: UserName, Email: Email, Password: Password },
                 success: function (data) {
-                    debugger
+                    alert(data);
+                    location.reload();
                 },
+                error: function () {
+                    alert("Error Occurred!");
+                }
             });
         })
     });
-});
