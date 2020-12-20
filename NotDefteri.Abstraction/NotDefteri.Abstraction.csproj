@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository\Base\IService.cs" />
+    <Compile Include="IRepository\INoteService.cs" />
     <Compile Include="IRepository\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
