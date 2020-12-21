@@ -2,6 +2,7 @@
 using NotDefteri.Data.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using PagedList;
 
 namespace NotDefteri.Web.Controllers
 {
@@ -16,9 +17,16 @@ namespace NotDefteri.Web.Controllers
 
         public ActionResult Index()
         {
-            List<NoteModel> noteModels = _noteService.GetAll(); 
+            IPagedList<NoteModel> noteModels = _noteService.GetAll().ToPagedList(1, 10);
 
             return View(noteModels);
+        }
+
+        public ActionResult Page(int pg)
+        {
+            IPagedList<NoteModel> noteModels = _noteService.GetAll().ToPagedList(pg, 10);
+
+            return View("Index", noteModels); ;
         }
     }
 }
