@@ -1,4 +1,4 @@
-﻿@model IPagedList<NotDefteri.Data.Models.NoteModel>
+﻿@model NotDefteri.Data.Models.PublicModel
 @using PagedList;
 @using PagedList.Mvc;
 @{
@@ -6,37 +6,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.Partial("_AddNote")
+
 @if (Session["FullName"] == null)
 {
 
-<div class="row" style="margin-top:100px;margin-bottom:500px">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Notlarım</h3>
+    <div class="row" style="margin-top:100px;margin-bottom:500px">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Notlarım</h3>
 
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body table-responsive p-0">
+                <div class="card-body table-responsive p-0">
 
-                <table class="table table-hover text-nowrap">
-                    <thead>
-                        <tr>
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
 
-                            <th>Başlık</th>
-                            <th>Tarih</th>
-                            <th>Kategori</th>
-                            <th>Not İçerik</th>
-                        </tr>
-                    </thead>
+                                <th>Başlık</th>
+                                <th>Tarih</th>
+                                <th>Kategori</th>
+                                <th>Not İçerik</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td></td>
@@ -45,11 +47,11 @@
                                 <td></td>
                             </tr>
                         </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 
 else
@@ -82,7 +84,7 @@ else
                                 <th>Not İçerik</th>
                             </tr>
                         </thead>
-                        @foreach (var note in Model)
+                        @foreach (var note in Model.NoteModels)
                         {
                             <tbody>
 
@@ -90,7 +92,7 @@ else
                                     <td>@note.Title</td>
                                     <td>@note.Date</td>
                                     <td>@note.CategoryModel.Name</td>
-                                    <td>@note.Content</td>
+                                    <td>@Html.Raw(note.Content)</td>
                                 </tr>
                             </tbody>
                         }
@@ -101,15 +103,13 @@ else
         </div>
     </div>
 
-    <div class="card-footer clearfix">
+    <div class="card-footer clearfix" style="width:0%;margin:auto">
         <div>
-            @Html.PagedListPager(Model, pg => "Page?pg=" + pg)
+            @Html.PagedListPager(Model.NoteModels, pg => "Page?pg=" + pg)
         </div>
     </div>
 
 }
-
-
 
 
 

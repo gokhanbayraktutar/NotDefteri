@@ -1,32 +1,86 @@
 ﻿using NotDefteri.Abstraction.IRepository;
 using NotDefteri.Data.Models;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using PagedList;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NotDefteri.Web.Controllers
 {
     public class NoteController : Controller
     {
+        private readonly ICategoryService _categoryService;
         private readonly INoteService _noteService;
+        private readonly IUserService _userService;
 
-        public NoteController(INoteService noteService)
+        public NoteController(ICategoryService categoryService, INoteService noteService, IUserService userService)
         {
+            _categoryService = categoryService;
             _noteService = noteService;
+            _userService = userService;
         }
+        PublicModel model = new PublicModel();
 
         public ActionResult Index()
         {
-            IPagedList<NoteModel> noteModels = _noteService.GetAll().ToPagedList(1, 10);
+           
+            model.NoteModels= _noteService.GetAll().ToPagedList(1, 10);
 
-            return View(noteModels);
+            var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
+                 {
+                     Text = x.Name,
+                     Value = x.Id.ToString()
+                 }).ToList();
+
+            ViewBag.categories = categoryModels;
+
+            return View(model);
         }
 
         public ActionResult Page(int pg)
         {
-            IPagedList<NoteModel> noteModels = _noteService.GetAll().ToPagedList(pg, 10);
+            model.NoteModels = _noteService.GetAll().ToPagedList(pg, 10);
 
-            return View("Index", noteModels); ;
+            var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            ViewBag.categories = categoryModels;
+
+            return View("Index", model); ;
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public  ActionResult NoteAdd(string title,string content, int categoryid)
+        {
+            UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
+
+            if(userModel != null)
+            {
+                NoteModel note = new NoteModel();
+
+                note.Title = title;
+
+                note.Content = content;
+
+                note.CategoryId = categoryid;
+
+                note.Date = DateTime.Now;
+
+                note.UserId = userModel.Id;
+
+                _noteService.Add(note);
+
+                return Json("");
+            }
+
+            else
+            {
+                return Json("");
+            }
         }
     }
 }

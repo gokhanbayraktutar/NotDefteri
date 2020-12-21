@@ -1,0 +1,25 @@
+﻿@model NotDefteri.Data.Models.PublicModel
+<div style="margin-top:25px;background-color: cornsilk">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Başlık</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Başlık Yazınız...">
+            </div>
+        </div>
+        <div class="col-md-6">
+            @Html.Label("Kategori Seçiniz", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.NoteModel.CategoryModel.Id, new SelectList(ViewBag.categories,
+        "Value", "Text"), "Seçiniz", new { @class = "form-control", @id = "categoryid" })
+        </div>
+    </div>
+
+    @Html.Partial("_TextEditor")
+
+    <div class="card-footer">
+        <button  class="btn btn-primary" id="AddtoNote" style="background-color:#17a2b8">Not Ekle </button>
+    </div>
+
+</div>
+
+<script src="~/Scripts/note.js"></script>

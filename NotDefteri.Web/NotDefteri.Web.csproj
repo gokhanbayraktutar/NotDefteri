@@ -644,6 +644,7 @@
     <Content Include="Content\assets\plugins\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="Content\assets\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Scripts\account.js" />
+    <Content Include="Scripts\note.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -679,6 +680,8 @@
     <Content Include="Views\Shared\_StylesPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Note\Index.cshtml" />
+    <Content Include="Views\Note\_TextEditor.cshtml" />
+    <Content Include="Views\Note\_AddNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NotDefteri.Abstraction\NotDefteri.Abstraction.csproj">
