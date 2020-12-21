@@ -11,6 +11,7 @@ namespace NotDefteri.Data.Utilities
             #region Entity to EntityModel
 
             config.CreateMap<Note, NoteModel>()
+                .ForMember(dest => dest.UserModel, opt => opt.MapFrom(src => src.User))
                 .ForMember(dest => dest.CategoryModel, opt => opt.MapFrom(src => src.Category));
             config.CreateMap<User, UserModel>();
             config.CreateMap<Category, CategoryModel>();

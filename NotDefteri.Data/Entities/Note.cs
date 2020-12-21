@@ -19,6 +19,8 @@ namespace NotDefteri.Data.Entities
 
         public virtual Category Category { get; set; }
 
+        public virtual User User { get; set; }
+
         public int CategoryId { get; set; }
 
 

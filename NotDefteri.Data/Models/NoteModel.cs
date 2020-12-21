@@ -15,8 +15,12 @@ namespace NotDefteri.Data.Models
 
         public string Content { get; set; }
 
+        public int CategoryId { get; set; }
+
         public int UserId { get; set; }
 
         public virtual CategoryModel CategoryModel { get; set; }
+
+        public virtual UserModel UserModel { get; set; }
     }
 }
