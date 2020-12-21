@@ -22,8 +22,9 @@ namespace NotDefteri.Web
 
             builder.RegisterType<DataContext>();
 
-            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
             builder.RegisterType<NoteService>().As<INoteService>();
+            builder.RegisterType<UserService>().As<IUserService>();
 
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
