@@ -39,7 +39,7 @@ namespace NotDefteri.Web.Controllers
                 FormsAuthentication.SetAuthCookie(cookie, true);
                 Session["FullName"] = user.UserName; 
                 Session["ID"] = user.Id;
-                return Redirect("/Home/Index");
+                return Redirect("/Note/Index");
             }
             else
             {
