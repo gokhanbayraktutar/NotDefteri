@@ -22,18 +22,37 @@ namespace NotDefteri.Web.Controllers
 
         public ActionResult Index()
         {
-           
-            model.NoteModels= _noteService.GetAll().OrderByDescending(x=>x.Date).ToList();
+            UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
 
-            var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
-                 {
-                     Text = x.Name,
-                     Value = x.Id.ToString()
-                 }).ToList();
+            if(userModel != null)
+            {
+                model.NoteModels= _noteService.GetAll().Where(x=>x.UserId == userModel.Id).OrderByDescending(x=>x.Date).ToList();
 
-            ViewBag.categories = categoryModels;
+                var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
+                                 {
+                                     Text = x.Name,
+                                     Value = x.Id.ToString()
+                                 }).ToList();
 
-            return View(model);
+                 ViewBag.categories = categoryModels;
+
+                 return View(model);
+            }
+            else
+            {
+                //ViewBag.User = false;
+                model.NoteModels = _noteService.GetAll().ToList();
+
+                var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+
+                ViewBag.categories = categoryModels;
+
+                return View(model);
+            }        
         }
 
         [HttpPost]

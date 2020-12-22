@@ -90,22 +90,22 @@ else
                                     <th class="text-center">İndir</th>
                                 </tr>
                             </thead>
-                          
-                        <tbody>
-                            @foreach (var note in Model.NoteModels)
-                            {
-                                <tr>
-                                    <td>@note.Title</td>
-                                    <td>@note.Date</td>
-                                    <td>@note.CategoryModel.Name</td>
-                                    <td>@Html.Raw(note.Content)</td>
-                                    <td><button class="btn bg-teal" type="button">Düzenle</button></td>
-                                    <td><button class="btn bg-danger" type="button">İndir</button></td>
-                                    
-                                </tr>
-                            }
+
+                            <tbody>
+                                @foreach (var note in Model.NoteModels)
+                                {
+                                    <tr>
+                                        <td>@note.Title</td>
+                                        <td>@note.Date</td>
+                                        <td>@note.CategoryModel.Name</td>
+                                        <td>@Html.Raw(note.Content)</td>
+                                        <td><button class="btn bg-teal" type="button">Düzenle</button></td>
+                                        <td><button class="btn bg-danger" type="button">İndir</button></td>
+
+                                    </tr>
+                                }
                             </tbody>
-                         
+
                         </table>
                     </div>
                     <!-- /basic responsive configuration -->
