@@ -24,7 +24,7 @@ namespace NotDefteri.Web.Controllers
         public ActionResult Index()
         {
            
-            model.NoteModels= _noteService.GetAll().ToPagedList(1, 10);
+            model.NoteModels= _noteService.GetAll().OrderByDescending(x=>x.Id).ToPagedList(1, 10);
 
             var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
                  {
@@ -39,7 +39,7 @@ namespace NotDefteri.Web.Controllers
 
         public ActionResult Page(int pg)
         {
-            model.NoteModels = _noteService.GetAll().ToPagedList(pg, 10);
+            model.NoteModels = _noteService.GetAll().OrderByDescending(x => x.Id).ToPagedList(pg, 10);
 
             var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
             {

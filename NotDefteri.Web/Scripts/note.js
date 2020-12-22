@@ -17,6 +17,7 @@
                 url: '/Note/NoteAdd/?title=' + title + "&content=" + content + "&categoryid=" + category,
                 success: function () {
                     alert("Not eklendi.");
+                    location.reload();
                 },
                 error: function () {
                     alert("Hata oluştu!")
