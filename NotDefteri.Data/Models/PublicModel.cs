@@ -1,15 +1,10 @@
-﻿using PagedList;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NotDefteri.Data.Models
 {
     public class PublicModel
     {
-        public IPagedList<NoteModel> NoteModels { get; set; }
+        public List<NoteModel> NoteModels { get; set; }
 
         public NoteModel NoteModel { get; set; }
     }

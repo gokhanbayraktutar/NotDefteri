@@ -1,115 +1,123 @@
 ﻿@model NotDefteri.Data.Models.PublicModel
-@using PagedList;
-@using PagedList.Mvc;
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @Html.Partial("_AddNote")
 
 @if (Session["FullName"] == null)
 {
+    <div class="page-content">
+        <!-- Main content -->
+        <div class="content-wrapper">
 
-    <div class="row" style="margin-top:100px;margin-bottom:500px">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Notlarım</h3>
+            <!-- Page header -->
+            <div class="page-header page-header-light">
 
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                <!-- Content area -->
+                <div class="content">
 
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <!-- Basic responsive configuration -->
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h5 class="card-title">Notlarım</h5>
+                            <div class="header-elements">
+                                <div class="list-icons">
+                                    <a class="list-icons-item" data-action="collapse"></a>
+                                    <a class="list-icons-item" data-action="reload"></a>
+                                    <a class="list-icons-item" data-action="remove"></a>
+                                </div>
                             </div>
                         </div>
+                        <table class="table datatable-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Başlık</th>
+                                    <th>Tarih</th>
+                                    <th>Kategori</th>
+                                    <th>Not İçerik</th>
+                                    <th>Detay</th>
+                                    <th class="text-center">İndir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="card-body table-responsive p-0">
+                    <!-- /basic responsive configuration -->
 
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
-
-                                <th>Başlık</th>
-                                <th>Tarih</th>
-                                <th>Kategori</th>
-                                <th>Not İçerik</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
+                <!-- /main content -->
+
             </div>
         </div>
     </div>
 }
-
 else
 {
-    <div class="row" style="margin-top:100px">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Notlarım</h3>
+    <div class="page-content">
+        <!-- Main content -->
+        <div class="content-wrapper">
 
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+            <!-- Page header -->
+            <div class="page-header page-header-light">
 
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                <!-- Content area -->
+                <div class="content">
+
+                    <!-- Basic responsive configuration -->
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h5 class="card-title">Notlarım</h5>
+                            <div class="header-elements">
+                                <div class="list-icons">
+                                    <a class="list-icons-item" data-action="collapse"></a>
+                                    <a class="list-icons-item" data-action="reload"></a>
+                                    <a class="list-icons-item" data-action="remove"></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card-body table-responsive p-0">
 
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
-
-                                <th>Başlık</th>
-                                <th>Tarih</th>
-                                <th>Kategori</th>
-                                <th>Not İçerik</th>
-                            </tr>
-                        </thead>
-                        @foreach (var note in Model.NoteModels)
-                        {
-                            <tbody>
-
+                        <table class="table datatable-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Başlık</th>
+                                    <th>Tarih</th>
+                                    <th>Kategori</th>
+                                    <th>Not İçerik</th>
+                                    <th>Düzenle</th>
+                                    <th class="text-center">İndir</th>
+                                </tr>
+                            </thead>
+                          
+                        <tbody>
+                            @foreach (var note in Model.NoteModels)
+                            {
                                 <tr>
                                     <td>@note.Title</td>
                                     <td>@note.Date</td>
                                     <td>@note.CategoryModel.Name</td>
                                     <td>@Html.Raw(note.Content)</td>
+                                    <td><button class="btn bg-teal" type="button">Düzenle</button></td>
+                                    <td><button class="btn bg-danger" type="button">İndir</button></td>
+                                    
                                 </tr>
+                            }
                             </tbody>
-                        }
-                    </table>
+                         
+                        </table>
+                    </div>
+                    <!-- /basic responsive configuration -->
 
                 </div>
+                <!-- /main content -->
+
             </div>
         </div>
     </div>
-
-    <div class="card-footer clearfix" style="width:0%;margin:auto">
-        <div>
-            @Html.PagedListPager(Model.NoteModels, pg => "Page?pg=" + pg)
-        </div>
-    </div>
-
 }
+
 
 
 

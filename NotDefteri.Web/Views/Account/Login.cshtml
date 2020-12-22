@@ -5,71 +5,77 @@
 }
 
 
-
-<div class="card card-info col-md-10" style="margin-top:100px;margin-left:10px;margin-bottom:300px">
-    <div class="card-header">
-        <h3 class="card-title">Kaydol</h3>
-    </div>
     @if (Model == null)
     {
-        <form class="form-horizontal" action="/Account/Login" method="post" role="form" enctype="multipart/form-data">
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kullanıcı Adı</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" name="UserName" placeholder="Kullanıcı Adı">
+        <form class="login-form" action="/Account/Login" method="post" role="form" enctype="multipart/form-data" style="margin-bottom:280px; margin-top:150px; margin-left:300px">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                        <h5 class="mb-0">Giriş Yap</h5>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Şifre</label>
-                    <div class="col-sm-5">
-                        <input type="password" class="form-control" name="Password" placeholder="Şifre">
-                    </div>
-                </div>
-            </div>
-            @if (ViewBag.error != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @ViewBag.error
-                </div>
 
-            }
-            <!-- /.card-body -->
-            <div class="card-footer">
-                <button type="submit" class="btn btn-info">Giriş Yap</button>
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <input type="text" class="form-control" name="UserName" placeholder="Kullanıcı Adı">
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <input type="password" class="form-control" name="Password" placeholder="Şifre">
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @ViewBag.error
+                        </div>
+
+                    }
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Giriş <i class="icon-circle-right2 ml-2"></i></button>
+                    </div>
+                </div>
             </div>
-            <!-- /.card-footer -->
         </form>
     }
     else
     {
-        <form class="form-horizontal" action="/Account/Login" method="post" role="form" enctype="multipart/form-data">
-            <div class="card-body">
-                <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Kullanıcı Adı</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" name="UserName" value="@Model.UserName" placeholder="Kullanıcı Adı">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Şifre</label>
-                    <div class="col-sm-5">
-                        <input type="password" class="form-control" name="Password" value="@Model.Password" placeholder="Şifre">
-                    </div>
-                </div>
-                @if (ViewBag.error != null)
-                {
-                    <div class="alert alert-danger" role="alert">
-                        @ViewBag.error
+        <form class="login-form" action="/Account/Login" method="post" role="form" enctype="multipart/form-data">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+                        <h5 class="mb-0">Kaydol</h5>
                     </div>
 
-                }
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <input type="text" class="form-control" name="UserName" value="@Model.UserName" placeholder="Kullanıcı Adı">
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group-feedback form-group-feedback-left">
+                        <input type="password" class="form-control" name="Password" value="@Model.Password" placeholder="Şifre">
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+                    @if (ViewBag.error != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @ViewBag.error
+                        </div>
+
+                    }
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Giriş <i class="icon-circle-right2 ml-2"></i></button>
+                    </div>
+                </div>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                <button type="submit" class="btn btn-info">Giriş Yap</button>
-            </div>
-            <!-- /.card-footer -->
         </form>
     }
-</div>

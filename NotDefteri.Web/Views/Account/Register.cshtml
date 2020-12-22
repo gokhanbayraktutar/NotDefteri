@@ -4,38 +4,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card card-info col-md-10" style="margin-top:100px;margin-left:10px;margin-bottom:300px">
-    <div class="card-header">
-        <h3 class="card-title">Kaydol</h3>
-    </div>
-    <form class="form-horizontal" action="/Account/Register">
+<form class="login-form" action="/Account/Register" style=" margin-top: 100px; margin-bottom: 290px; margin-left: 300px;">
+    <div class="card mb-0">
         <div class="card-body">
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-5">
-                    <input type="email" class="form-control" id="Email" name="Email" placeholder="Email">
+            <div class="text-center mb-3">
+                <i class="icon-plus3 icon-2x text-success border-success border-3 rounded-round p-3 mb-3 mt-1"></i>
+                <h5 class="mb-0">Kaydol</h5>
+            </div>
+            <div class="form-group form-group-feedback form-group-feedback-left">
+                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Kullanıcı Adı">
+                <div class="form-control-feedback">
+                    <i class="icon-user-check text-muted"></i>
+                </div>
+                @*<span class="form-text text-danger"><i class="icon-cancel-circle2 mr-2"></i> This username is already taken</span>*@
+            </div>
+
+            <div class="form-group form-group-feedback form-group-feedback-left">
+                <input type="password" class="form-control" id="Password" name="Password" placeholder="Şifre">
+                <div class="form-control-feedback">
+                    <i class="icon-user-lock text-muted"></i>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Kullanıcı Adı</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Kullanıcı Adı">
+            <div class="form-group form-group-feedback form-group-feedback-left">
+                <input type="Email" class="form-control" id="Email" name="Email" placeholder="Email">
+                <div class="form-control-feedback">
+                    <i class="icon-mention text-muted"></i>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Şifre</label>
-                <div class="col-sm-5">
-                    <input type="password" class="form-control" id="Password" name="Password" placeholder="Şifre">
-                </div>
-            </div>
+            <button type="submit" id="btnRegister" class="btn bg-teal-400 btn-block">Kaydol <i class="icon-circle-right2 ml-2"></i></button>
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            <button type="submit" id="btnRegister" class="btn btn-info">Kaydol</button>
-        </div>
-        <!-- /.card-footer -->
-    </form>
-</div>
+    </div>
+</form>
+
+
+
+
+
+
+
 
 <script src="~/Scripts/account.js"></script>
 
