@@ -85,5 +85,48 @@ namespace NotDefteri.Web.Controllers
                 return Json("");
             }
         }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult NoteUpdate(int id)
+        {
+            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
+
+            var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            ViewBag.categories = categoryModels;
+
+
+            return PartialView("_UpdateNote", note);
+        }
+
+        [HttpPost]
+        public ActionResult NoteEdit(int id , string title, string content, int categoryid)
+        {
+            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
+
+            UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
+
+            note.Title = title;
+
+            note.Content = content;
+
+            note.CategoryId = categoryid;
+
+            note.Date = DateTime.Now;
+
+            note.UserId = userModel.Id;
+
+            _noteService.Update(note);
+
+            return Json("");
+
+        }
+
+
     }
 }
