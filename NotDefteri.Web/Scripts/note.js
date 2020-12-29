@@ -48,8 +48,27 @@
                 location.reload();
 
             },
-            error: function (data) {
-                alert(data)
+            error: function () {
+                alert("Hata")
+            }
+        });
+    })
+    $('#DeletetoNote').click(function () {
+        var id = $("#id").val();
+        $.ajax({
+            async: true,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            url: '/Note/NoteRemove/?id=' + id,
+            success: function () {
+                alert("Not Silindi.")
+                location.reload();
+
+            },
+            error: function () {
+                alert("Hata")
             }
         });
     })

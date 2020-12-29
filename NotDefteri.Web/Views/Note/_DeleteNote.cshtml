@@ -1,0 +1,28 @@
+﻿@model NotDefteri.Data.Models.NoteModel
+
+
+<input type="hidden" id="id" value="@Model.Id" />
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-2">Başlık:</label>
+    <div class="col-sm-5">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+        
+</div>
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-2">Kategori:</label>
+    <div class ="col-sm-5">
+        @Html.DisplayFor(model => model.CategoryModel.Name)
+    </div>
+        
+</div>
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-2">İçerik:</label>
+    <div class="col-sm-8">
+        @Html.Raw(Model.Content)
+    </div>
+           
+</div>

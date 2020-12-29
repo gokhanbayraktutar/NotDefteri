@@ -804,6 +804,7 @@
     <Content Include="Views\Note\_TextEditor.cshtml" />
     <Content Include="Views\Note\_AddNote.cshtml" />
     <Content Include="Views\Note\_UpdateNote.cshtml" />
+    <Content Include="Views\Note\_DeleteNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NotDefteri.Abstraction\NotDefteri.Abstraction.csproj">

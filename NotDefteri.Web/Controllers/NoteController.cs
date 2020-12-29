@@ -127,6 +127,23 @@ namespace NotDefteri.Web.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult NoteDelete(int id)
+        {
+            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
 
+            return PartialView("_DeleteNote", note);
+        }
+
+        [HttpPost]
+        public ActionResult NoteRemove(int id)
+        {
+            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
+
+            _noteService.Remove(note.Id);
+
+            return Json("");
+           
+        }
     }
 }
