@@ -21,7 +21,7 @@
                     url: '/Note/NoteAdd/?title=' + title + "&content=" + content + "&categoryid=" + category,
                     success: function () {
                         alert("Not eklendi.");
-                        location.reload();
+                         $("#tbl").load(" #tbl")
                     },
                     error: function () {
                         alert("Hata oluştu!")
@@ -63,9 +63,8 @@
             dataType: 'html',
             url: '/Note/NoteRemove/?id=' + id,
             success: function () {
-                alert("Not Silindi.")
+                alert("Not Silindi.");
                 location.reload();
-
             },
             error: function () {
                 alert("Hata")
