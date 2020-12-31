@@ -23,9 +23,6 @@ namespace NotDefteri.Web.Controllers
 
         public ActionResult Login()
         {
-
-            var user = _userService.GetAll().ToList();
-
             return View();
         }
 
