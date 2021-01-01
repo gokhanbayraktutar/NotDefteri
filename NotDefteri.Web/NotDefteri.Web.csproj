@@ -720,6 +720,7 @@
     <Content Include="Content\global_assets\js\plugins\summernote\summernote.min.js.map" />
     <Content Include="Scripts\account.js" />
     <Content Include="Scripts\note.js" />
+    <Content Include="Content\assets\js\sweetalert.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -804,7 +805,7 @@
     <Content Include="Views\Note\_TextEditor.cshtml" />
     <Content Include="Views\Note\_AddNote.cshtml" />
     <Content Include="Views\Note\_UpdateNote.cshtml" />
-    <Content Include="Views\Note\_DeleteNote.cshtml" />
+    <Content Include="Views\Note\_Tablo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NotDefteri.Abstraction\NotDefteri.Abstraction.csproj">

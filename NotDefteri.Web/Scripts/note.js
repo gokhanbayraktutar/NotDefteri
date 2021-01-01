@@ -1,15 +1,24 @@
-﻿$(function () {
+﻿
+$(function () {
     $('#AddtoNote').click(function () {
         var title = $("#title").val();
         var content = $("#txtcontent").val();
         var category = $("#categoryid").val();
 
         if (user == "") {
-            alert("Kullanıcı Girişi Yapınız!");
+            swal({
+                title: "Hata",
+                text: "Önce Giriş Yapınız",
+                icon: "error"
+            });
         }
         else {
             if (category == "") {
-                alert("Kategori seçiniz!")
+                swal({
+                    title: "Hata",
+                    text: "Kategori Seçiniz",
+                    icon: "error"
+                });
             } else {
                 $.ajax({
                     async: true,
@@ -20,8 +29,15 @@
                     dataType: 'html',
                     url: '/Note/NoteAdd/?title=' + title + "&content=" + content + "&categoryid=" + category,
                     success: function () {
-                        alert("Not eklendi.");
-                         $("#tbl").load(" #tbl")
+                        $("#tbl").load(" #tbl")
+                        swal({
+                            title: "Başarılı",
+                            text: "Not eklendi",
+                            icon: "success"
+                        });
+
+                        $("#title").val("");
+                        $("#txtcontent").val("");
                     },
                     error: function () {
                         alert("Hata oluştu!")
@@ -43,10 +59,13 @@
             processData: false,
             dataType: 'html',
             url: '/Note/NoteEdit/?id=' + id + "&title=" + title + "&content=" + content + "&categoryid=" + category,
-            success: function () {
-                alert("Not Güncellendi.")
-                location.reload();
-
+            success: function (data) {
+                swal({
+                    title: "Başarılı",
+                    text: "Not Güncellendi",
+                    icon: "success"
+                });
+                $("#nottablo").html(data);
             },
             error: function () {
                 alert("Hata")
@@ -54,21 +73,42 @@
         });
     })
     $('#DeletetoNote').click(function () {
-        var id = $("#id").val();
-        $.ajax({
-            async: true,
-            type: "POST",
-            contentType: false,
-            processData: false,
-            dataType: 'html',
-            url: '/Note/NoteRemove/?id=' + id,
-            success: function () {
-                alert("Not Silindi.");
-                location.reload();
-            },
-            error: function () {
-                alert("Hata")
+        var id = $(this).data("model-id");
+        swal({
+            title: "Silme İşlemi",
+            text: "Emin misin?",
+            buttons: {
+                confirm: "Evet",
+                cancel: true
+            }
+        }).then(val => {
+            if (val) {
+
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    dataType: 'html',
+                    url: '/Note/NoteRemove/?id=' + id,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Hata")
+                    }
+                });
+
+
+
+
             }
         });
+
+
+
+
+
+     
     })
 });

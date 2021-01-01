@@ -1,0 +1,32 @@
+﻿@model List<NotDefteri.Data.Models.NoteModel>
+<table class="table datatable-responsive">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>Tarih</th>
+            <th>Kategori</th>
+            <th>Not İçerik</th>
+            <th>Düzenle</th>
+            <th class="text-center">Sil</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var note in Model)
+        {
+            <tr>
+                <td>@note.Title</td>
+                <td>@note.Date</td>
+                <td>@note.CategoryModel.Name</td>
+                <td>@Html.Raw(note.Content)</td>
+                <td>
+                    <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
+                </td>
+                <td>
+                    <a href="#" class="viewDelete" style="color:red" data-target="/Note/NoteDelete/@note.Id">Sil</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

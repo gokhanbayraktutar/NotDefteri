@@ -76,38 +76,40 @@ else
                                 </div>
                             </div>
                         </div>
-
-                        <table class="table datatable-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Başlık</th>
-                                    <th>Tarih</th>
-                                    <th>Kategori</th>
-                                    <th>Not İçerik</th>
-                                    <th>Düzenle</th>
-                                    <th class="text-center">Sil</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach (var note in Model.NoteModels)
-                                {
+                        <div  id="nottablo">
+                            <table class="table datatable-responsive">
+                                <thead>
                                     <tr>
-                                        <td>@note.Title</td>
-                                        <td>@note.Date</td>
-                                        <td>@note.CategoryModel.Name</td>
-                                        <td>@Html.Raw(note.Content)</td>
-                                        <td>
-                                            <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="viewDelete" style="color:red" data-target="/Note/NoteDelete/@note.Id">Sil</a>
-                                        </td>
-
+                                        <th>Başlık</th>
+                                        <th>Tarih</th>
+                                        <th>Kategori</th>
+                                        <th>Not İçerik</th>
+                                        <th>Düzenle</th>
+                                        <th class="text-center">Sil</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var note in Model.NoteModels)
+                                    {
+                                        <tr>
+                                            <td>@note.Title</td>
+                                            <td>@note.Date</td>
+                                            <td>@note.CategoryModel.Name</td>
+                                            <td>@Html.Raw(note.Content)</td>
+                                            <td>
+                                                <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" id="DeletetoNote" data-model-id="@note.Id" style="color:red" >Sil</a>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- Content area -->
@@ -145,35 +147,6 @@ else
 
 </script>
 
-<script>
-    $(function () {
-        // a tagimizde bulunan .view classımıza click olduğunda
-        $("body").on("click", ".viewDelete", function () {
-            //data-target dan url mizi al
-            var url = $(this).data("target");
-            //bu urlimizi post et
-            $.post(url, function (data) { })
-                //eğer işlemimiz başarılı bir şekilde gerçekleşirse
-                .done(function (data) {
-                    //gelen datayı .modal-body mizin içerise html olarak ekle
-                    $("#modeldeleteView .modal-body").html(data);
-                    //sonra da modalimizi göster
-                    $("#modeldeleteView").modal("show");
-                })
-                //eğer işlem başarısız olursa
-                .fail(function (err) {
-                    debugger
-                    //modalımızın bodysine Error! yaz
-                    $("#modeldeleteView .modal-body").text("Error!!");
-                    //sonra da modalimizi göster
-                    $("#modeldeleteView").modal("show");
-                })
-
-        });
-    })
-
-</script>
-
 <div id="modalView" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -190,28 +163,6 @@ else
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" data-dismiss="modal">Çıkış</button>
                     <button id="UpdatetoNote" aria-pressed="true" class="btn bg-primary">Kaydet</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="modeldeleteView" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Silme İşlemi</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <form method="post" class="form-horizontal">
-                <div class="modal-body">
-                    @*<p>Modal body text goes here.</p>*@
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Çıkış</button>
-                    <button aria-pressed="true" id="DeletetoNote" class="btn bg-primary">Sil</button>
                 </div>
             </form>
         </div>

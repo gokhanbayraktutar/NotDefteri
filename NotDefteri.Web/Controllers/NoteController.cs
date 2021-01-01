@@ -107,7 +107,9 @@ namespace NotDefteri.Web.Controllers
         [HttpPost]
         public ActionResult NoteEdit(int id , string title, string content, int categoryid)
         {
-            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
+            var noteList = _noteService.GetAll();
+
+            var note = noteList.FirstOrDefault(x => x.Id == id);
 
             UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
 
@@ -123,17 +125,10 @@ namespace NotDefteri.Web.Controllers
 
             _noteService.Update(note);
 
-            return Json("");
+            return PartialView("_Tablo", noteList);
 
         }
 
-        [HttpPost]
-        public ActionResult NoteDelete(int id)
-        {
-            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
-
-            return PartialView("_DeleteNote", note);
-        }
 
         [HttpPost]
         public ActionResult NoteRemove(int id)
@@ -142,7 +137,7 @@ namespace NotDefteri.Web.Controllers
 
             _noteService.Remove(note.Id);
 
-            return Json("");
+           return Json("");
            
         }
     }
