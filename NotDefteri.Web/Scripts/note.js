@@ -72,28 +72,4 @@ $(function () {
             }
         });
     })
-
-    $('#DeletetoNote').click(function () {
-        $('#mymodal').modal('show');
-        var noteId = $(this).data("model-id");
-
-        $('#hiddenNoteId').val(noteId);
-    });
-
-    $('#DeleteNote').click(function () {
-        var noteId = $('#hiddenNoteId').val();
-
-        $.ajax({
-            type: "POST",
-            url: '/Note/NoteRemove',
-            data: { id: noteId },
-            success: function (result) {
-                $('#mymodal').modal('hide');
-                $('#row_' + noteId).remove();
-
-            },
-            error: function () {
-            }
-        });
-    });
 });

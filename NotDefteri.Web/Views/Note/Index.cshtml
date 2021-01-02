@@ -101,7 +101,7 @@ else
                                                 <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
                                             </td>
                                             <td>
-                                                <a href="#" id="DeletetoNote" data-model-id="@note.Id" style="color:red">Sil</a>
+                                                <a href="#" class="btn btn-danger" onclick="DeletetoNote(@note.Id)">Sil</a>
                                             </td>
                                         </tr>
                                     }
@@ -184,11 +184,40 @@ else
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" id="DeleteNote">Sil</button>
+                <button type="button" class="btn btn-success" onclick="ConfDeleteNote()">Sil</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    var DeletetoNote = function (Id) {
+        $('#hiddenNoteId').val(Id);
+        $('#mymodal').modal('show');
+    };
+
+    var ConfDeleteNote = function () {
+        debugger
+        var noteId = $("#hiddenNoteId").val();
+
+        $.ajax({
+            type: "POST",
+            url: '/Note/NoteRemove',
+            data: { id: noteId },
+            success: function (result) {
+                $('#mymodal').modal('hide');
+                $('#row_' + noteId).remove();
+
+            },
+            error: function () {
+            }
+        });
+
+
+
+    };
+</script>
+
 
 
 <script src="~/Scripts/note.js"></script>
