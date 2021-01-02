@@ -72,43 +72,28 @@ $(function () {
             }
         });
     })
+
     $('#DeletetoNote').click(function () {
-        var id = $(this).data("model-id");
-        swal({
-            title: "Silme İşlemi",
-            text: "Emin misin?",
-            buttons: {
-                confirm: "Evet",
-                cancel: true
-            }
-        }).then(val => {
-            if (val) {
+        $('#mymodal').modal('show');
+        var noteId = $(this).data("model-id");
 
-                $.ajax({
-                    async: true,
-                    type: "POST",
-                    contentType: false,
-                    processData: false,
-                    dataType: 'html',
-                    url: '/Note/NoteRemove/?id=' + id,
-                    success: function () {
-                        location.reload();
-                    },
-                    error: function () {
-                        alert("Hata")
-                    }
-                });
+        $('#hiddenNoteId').val(noteId);
+    });
 
+    $('#DeleteNote').click(function () {
+        var noteId = $('#hiddenNoteId').val();
 
+        $.ajax({
+            type: "POST",
+            url: '/Note/NoteRemove',
+            data: { id: noteId },
+            success: function (result) {
+                $('#mymodal').modal('hide');
+                $('#row_' + noteId).remove();
 
-
+            },
+            error: function () {
             }
         });
-
-
-
-
-
-     
-    })
+    });
 });

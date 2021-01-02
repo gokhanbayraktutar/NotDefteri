@@ -76,7 +76,7 @@ else
                                 </div>
                             </div>
                         </div>
-                        <div  id="nottablo">
+                        <div id="nottablo">
                             <table class="table datatable-responsive">
                                 <thead>
                                     <tr>
@@ -92,7 +92,7 @@ else
                                 <tbody>
                                     @foreach (var note in Model.NoteModels)
                                     {
-                                        <tr>
+                                        <tr id="row_@note.Id">
                                             <td>@note.Title</td>
                                             <td>@note.Date</td>
                                             <td>@note.CategoryModel.Name</td>
@@ -101,15 +101,14 @@ else
                                                 <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
                                             </td>
                                             <td>
-                                                <a href="#" id="DeletetoNote" data-model-id="@note.Id" style="color:red" >Sil</a>
+                                                <a href="#" id="DeletetoNote" data-model-id="@note.Id" style="color:red">Sil</a>
                                             </td>
-
                                         </tr>
                                     }
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- Content area -->
@@ -169,6 +168,27 @@ else
     </div>
 </div>
 
+<input type="hidden" id="hiddenNoteId" />
+
+<div class="modal fade" id="mymodal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Not Silme işlemi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Emin misin?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="DeleteNote">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="~/Scripts/note.js"></script>

@@ -24,19 +24,19 @@ namespace NotDefteri.Web.Controllers
         {
             UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
 
-            if(userModel != null)
+            if (userModel != null)
             {
-                model.NoteModels= _noteService.GetAll().Where(x=>x.UserId == userModel.Id).OrderByDescending(x=>x.Date).ToList();
+                model.NoteModels = _noteService.GetAll().Where(x => x.UserId == userModel.Id).OrderByDescending(x => x.Date).ToList();
 
                 var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
-                                 {
-                                     Text = x.Name,
-                                     Value = x.Id.ToString()
-                                 }).ToList();
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
 
-                 ViewBag.categories = categoryModels;
+                ViewBag.categories = categoryModels;
 
-                 return View(model);
+                return View(model);
             }
             else
             {
@@ -52,16 +52,16 @@ namespace NotDefteri.Web.Controllers
                 ViewBag.categories = categoryModels;
 
                 return View(model);
-            }        
+            }
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public  ActionResult NoteAdd(string title,string content, int categoryid)
+        public ActionResult NoteAdd(string title, string content, int categoryid)
         {
             UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
 
-            if(userModel != null)
+            if (userModel != null)
             {
                 NoteModel note = new NoteModel();
 
@@ -105,7 +105,7 @@ namespace NotDefteri.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult NoteEdit(int id , string title, string content, int categoryid)
+        public ActionResult NoteEdit(int id, string title, string content, int categoryid)
         {
             var noteList = _noteService.GetAll();
 
@@ -133,12 +133,19 @@ namespace NotDefteri.Web.Controllers
         [HttpPost]
         public ActionResult NoteRemove(int id)
         {
-            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
+            bool result = false;
 
-            _noteService.Remove(note.Id);
+            NoteModel note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
 
-           return Json("");
-           
+            if(note != null)
+            {
+                _noteService.Remove(note.Id);
+
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
     }
 }
