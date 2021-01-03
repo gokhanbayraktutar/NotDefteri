@@ -1,4 +1,56 @@
-﻿@model List<NotDefteri.Data.Models.NoteModel>
+﻿@model NotDefteri.Data.Models.PublicModel
+
+@foreach (var item in Model.NoteModels)
+{
+    <div class="modal fade" id="exampleModal@(item.Id)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel@(item.Id)">Note Düzenleme İşlemi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="form-group row">
+
+                            <label class="col-form-label col-sm-2">Başlık:</label>
+                            <div class="col-sm-5">
+                                <input id="baslik" value="@item.Title" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-2">Kategori:</label>
+                            <div class="col-sm-5">
+                                <select id="kategori" class="form-control">
+                                    @foreach (var cat in Model.CategoryModels)
+                                    {
+                                        <option value="@cat.Id">@cat.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label col-sm-2">İçerik:</label>
+                            <div class="col-lg-7">
+                                <input id="icerik" value="@item.Content" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Çıkış</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdatetoNote(this)" itemscope itemid="@item.Id" data-dismiss="modal">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <table class="table datatable-responsive">
     <thead>
         <tr>
@@ -12,21 +64,22 @@
     </thead>
 
     <tbody>
-        @foreach (var note in Model)
+        @foreach (var note in Model.NoteModels)
         {
-            <tr>
+
+            <tr id="row_@note.Id">
                 <td>@note.Title</td>
                 <td>@note.Date</td>
                 <td>@note.CategoryModel.Name</td>
                 <td>@Html.Raw(note.Content)</td>
                 <td>
-                    <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal@(note.Id)">Düzenle</button>
                 </td>
                 <td>
-                    <a href="#" class="viewDelete" style="color:red" data-target="/Note/NoteDelete/@note.Id">Sil</a>
+                    <a href="#" class="btn btn-danger" onclick="DeletetoNote(@note.Id)">Sil</a>
                 </td>
-
             </tr>
         }
+
     </tbody>
 </table>

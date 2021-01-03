@@ -22,5 +22,6 @@ namespace NotDefteri.Data.Models
         public virtual CategoryModel CategoryModel { get; set; }
 
         public virtual UserModel UserModel { get; set; }
+
     }
 }

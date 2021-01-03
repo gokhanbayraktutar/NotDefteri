@@ -46,30 +46,4 @@ $(function () {
             }
         }
     })
-    $('#UpdatetoNote').click(function () {
-
-        var id = $("#noteid").val();
-        var title = $("#edittitle").val();
-        var content = $("#editcontent").val();
-        var category = $("#editcategory").val();
-        $.ajax({
-            async: true,
-            type: "POST",
-            contentType: false,
-            processData: false,
-            dataType: 'html',
-            url: '/Note/NoteEdit/?id=' + id + "&title=" + title + "&content=" + content + "&categoryid=" + category,
-            success: function (data) {
-                swal({
-                    title: "Başarılı",
-                    text: "Not Güncellendi",
-                    icon: "success"
-                });
-                $("#nottablo").html(data);
-            },
-            error: function () {
-                alert("Hata")
-            }
-        });
-    })
 });

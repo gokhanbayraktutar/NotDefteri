@@ -28,6 +28,8 @@ namespace NotDefteri.Web.Controllers
             {
                 model.NoteModels = _noteService.GetAll().Where(x => x.UserId == userModel.Id).OrderByDescending(x => x.Date).ToList();
 
+                model.CategoryModels = _categoryService.GetAll();
+
                 var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -86,46 +88,45 @@ namespace NotDefteri.Web.Controllers
             }
         }
 
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult NoteUpdate(int id)
-        {
-            var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult NoteUpdate(int id)
+        //{
+        //    var note = _noteService.GetAll().FirstOrDefault(x => x.Id == id);
 
-            var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.Id.ToString()
-            }).ToList();
+        //    var categoryModels = _categoryService.GetAll().Select(x => new SelectListItem
+        //    {
+        //        Text = x.Name,
+        //        Value = x.Id.ToString()
+        //    }).ToList();
 
-            ViewBag.categories = categoryModels;
+        //    ViewBag.categories = categoryModels;
 
 
-            return PartialView("_UpdateNote", note);
-        }
+        //    return PartialView("_UpdateNote", note);
+        //}
 
         [HttpPost]
         public ActionResult NoteEdit(int id, string title, string content, int categoryid)
         {
-            var noteList = _noteService.GetAll();
-
-            var note = noteList.FirstOrDefault(x => x.Id == id);
-
             UserModel userModel = _userService.GetAll().FirstOrDefault(x => x.UserName == User.Identity.Name);
+            PublicModel model = new PublicModel();
+            model.CategoryModels = _categoryService.GetAll();
+            model.NoteModels = _noteService.GetAll().Where(x => x.UserId == userModel.Id).ToList();
+            model.NoteModel = model.NoteModels.FirstOrDefault(x => x.Id == id);
+            model.NoteModel.Title = title;
 
-            note.Title = title;
+            model.NoteModel.Content = content;
 
-            note.Content = content;
+            model.NoteModel.CategoryId = categoryid;
 
-            note.CategoryId = categoryid;
+            model.NoteModel.Date = DateTime.Now;
 
-            note.Date = DateTime.Now;
+            model.NoteModel.UserId = userModel.Id;
 
-            note.UserId = userModel.Id;
+            _noteService.Update(model.NoteModel);
 
-            _noteService.Update(note);
-
-            return PartialView("_Tablo", noteList);
+            return PartialView("_Tablo", model);
 
         }
 

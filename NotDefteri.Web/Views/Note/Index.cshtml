@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 @Html.Partial("_AddNote")
 
@@ -98,7 +99,7 @@ else
                                             <td>@note.CategoryModel.Name</td>
                                             <td>@Html.Raw(note.Content)</td>
                                             <td>
-                                                <a href="#" class="view" data-target="/Note/NoteUpdate/@note.Id">Düzenle</a>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal@(note.Id)">Düzenle</button>
                                             </td>
                                             <td>
                                                 <a href="#" class="btn btn-danger" onclick="DeletetoNote(@note.Id)">Sil</a>
@@ -117,56 +118,84 @@ else
     </div>
 }
 
-<script>
-    $(function () {
-        // a tagimizde bulunan .view classımıza click olduğunda
-        $("body").on("click", ".view", function () {
-            //data-target dan url mizi al
-            var url = $(this).data("target");
-            //bu urlimizi post et
-            $.post(url, function (data) { })
-                //eğer işlemimiz başarılı bir şekilde gerçekleşirse
-                .done(function (data) {
-                    //gelen datayı .modal-body mizin içerise html olarak ekle
-                    $("#modalView .modal-body").html(data);
-                    //sonra da modalimizi göster
-                    $("#modalView").modal("show");
-                })
-                //eğer işlem başarısız olursa
-                .fail(function (err) {
-                    debugger
-                    //modalımızın bodysine Error! yaz
-                    $("#modalView .modal-body").text("Error!!");
-                    //sonra da modalimizi göster
-                    $("#modalView").modal("show");
-                })
-
-        });
-    })
-
-</script>
-
-<div id="modalView" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Düzenleme İşlemleri</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <form method="post" class="form-horizontal">
+@foreach (var item in Model.NoteModels)
+{
+    <div class="modal fade" id="exampleModal@(item.Id)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel@(item.Id)">Note Düzenleme İşlemi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body">
-                    @*<p>Modal body text goes here.</p>*@
-                </div>
+                    <div>
+                        <div class="form-group row">
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Çıkış</button>
-                    <button id="UpdatetoNote" aria-pressed="true" class="btn bg-primary">Kaydet</button>
+                            <label class="col-form-label col-sm-2">Başlık:</label>
+                            <div class="col-sm-5">
+                               <input id="baslik" value="@item.Title" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-2">Kategori:</label>
+                            <div class="col-sm-5">
+                               <select id="kategori" class="form-control">
+                                  @foreach (var cat in Model.CategoryModels)
+                                  {
+                                      <option value="@cat.Id" >@cat.Name</option>
+                                  }
+                               </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label col-sm-2">İçerik:</label>
+                            <div class="col-lg-7">
+                                <input id="icerik" value="@item.Content" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Çıkış</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdatetoNote(this)" itemscope itemid="@item.Id" data-dismiss="modal">Kaydet</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+}
+
+<script type="text/javascript">
+    function UpdatetoNote(item) {
+        var id = $(item).attr("itemid");
+        var title = $("#baslik").val();
+        var content = $("#icerik").val();
+        var category = $("#kategori").val();
+        $.ajax({
+            async: true,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: 'html',
+            url: '/Note/NoteEdit/?id=' + id + "&title=" + title + "&content=" + content + "&categoryid=" + category,
+            success: function (data) {
+                swal({
+                    title: "Başarılı",
+                    text: "Not Güncellendi",
+                    icon: "success"
+                });
+                $("#nottablo").html(data);
+            },
+            error: function () {
+                alert("Hata")
+            }
+        });
+    }
+</script>
 
 <input type="hidden" id="hiddenNoteId" />
 
